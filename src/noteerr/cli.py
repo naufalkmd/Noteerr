@@ -28,48 +28,73 @@ storage = Storage()
 @click.version_option(version=__version__)
 def cli():
     """
-    Noteerr - Command Error Memory Tool
+    🚨 Noteerr - Command Error Memory Tool
     
     Automatically log, annotate, and recall command errors.
     Never forget how you fixed that mysterious bug again!
     
-    USAGE:
-        noteerr COMMAND [OPTIONS]
+    ═══════════════════════════════════════════════════════════════════
+    QUICK START
+    ═══════════════════════════════════════════════════════════════════
     
-    COMMANDS:
-        save      Save a failed command and error message with optional notes
-        list      Display recent or filtered error entries
-        search    Find errors by command, error text, notes, or tags
-        show      View full details of a specific error entry
-        delete    Remove an error entry from the database
-        stats     Display statistics about your logged errors
-        copy      Copy error details to clipboard in various formats
-        projects  Manage and organize errors by project
-        export    Export errors to JSON or CSV
-        tags      Manage error tags and categories
-    
-    EXAMPLES:
-        # After a command fails
-        npm start || noteerr save "missing dependency"
-        
-        # Search for similar errors
-        noteerr search "npm"
-        
-        # View recent errors
-        noteerr list --limit 5
-        
-        # View by project
-        noteerr list --project MyApp
-    
-    GLOBAL OPTIONS:
-        --version      Show version and exit
-        --help         Show this help message
-    
-    Getting Started:
         1. Run a command that fails
-        2. Use 'noteerr save "your note"' to log it
+        2. Use 'noteerr save \"your note\"' to log it
         3. Use 'noteerr list' to see all errors
         4. Use 'noteerr search' to find similar issues
+    
+    ═══════════════════════════════════════════════════════════════════
+    COMMANDS
+    ═══════════════════════════════════════════════════════════════════
+    
+        save       Save a failed command with error and notes
+        list       View recent or filtered error entries
+        search     Find errors by command, text, notes, or tags
+        show       Display full details of a specific error
+        delete     Remove an error entry from the database
+        stats      Display statistics about your logged errors
+        copy       Copy error details to clipboard
+        projects   Manage and organize errors by project
+        tags       Manage error tags and categories
+    
+    ═══════════════════════════════════════════════════════════════════
+    COMMON EXAMPLES
+    ═══════════════════════════════════════════════════════════════════
+    
+        # Save an error after a command fails
+        npm start || noteerr save \"missing dependency\"
+        
+        # View all recent errors
+        noteerr list
+        
+        # Search for npm-related errors
+        noteerr search npm
+        
+        # View errors from a specific project
+        noteerr list --project MyApp
+        
+        # See detailed info about error #5
+        noteerr show 5
+        
+        # Copy error #1 to clipboard
+        noteerr copy 1
+    
+    ═══════════════════════════════════════════════════════════════════
+    OPTIONS
+    ═══════════════════════════════════════════════════════════════════
+    
+        --version       Show version and exit
+        --help          Show this help message
+    
+    ═══════════════════════════════════════════════════════════════════
+    GET HELP FOR A SPECIFIC COMMAND
+    ═══════════════════════════════════════════════════════════════════
+    
+        noteerr COMMAND --help
+        
+        Examples:
+            noteerr save --help
+            noteerr list --help
+            noteerr search --help
     """
     pass
 
