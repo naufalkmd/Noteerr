@@ -3,7 +3,7 @@ class Noteerr < Formula
 
   desc "Command Error Memory Tool - Never forget how you fixed that bug again"
   homepage "https://github.com/naufalkmd/Noteerr"
-  url "https://github.com/naufalkmd/Noteerr/archive/refs/tags/v1.1.0.tar.gz"
+  url "https://github.com/naufalkmd/Noteerr/archive/v1.1.0.tar.gz"
   sha256 "7099BE1B178475476F9C1EC06E69F38F38D62F2F6D9301384F8309CE4FDC0C4B"
   license "MIT"
 
