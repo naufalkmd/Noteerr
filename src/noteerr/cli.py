@@ -32,6 +32,44 @@ def cli():
     
     Automatically log, annotate, and recall command errors.
     Never forget how you fixed that mysterious bug again!
+    
+    USAGE:
+        noteerr COMMAND [OPTIONS]
+    
+    COMMANDS:
+        save      Save a failed command and error message with optional notes
+        list      Display recent or filtered error entries
+        search    Find errors by command, error text, notes, or tags
+        show      View full details of a specific error entry
+        delete    Remove an error entry from the database
+        stats     Display statistics about your logged errors
+        copy      Copy error details to clipboard in various formats
+        projects  Manage and organize errors by project
+        export    Export errors to JSON or CSV
+        tags      Manage error tags and categories
+    
+    EXAMPLES:
+        # After a command fails
+        npm start || noteerr save "missing dependency"
+        
+        # Search for similar errors
+        noteerr search "npm"
+        
+        # View recent errors
+        noteerr list --limit 5
+        
+        # View by project
+        noteerr list --project MyApp
+    
+    GLOBAL OPTIONS:
+        --version      Show version and exit
+        --help         Show this help message
+    
+    Getting Started:
+        1. Run a command that fails
+        2. Use 'noteerr save "your note"' to log it
+        3. Use 'noteerr list' to see all errors
+        4. Use 'noteerr search' to find similar issues
     """
     pass
 
@@ -46,12 +84,40 @@ def cli():
 @click.option('--force', '-f', is_flag=True, help='Force save even if duplicate exists')
 def save(notes, command, error, exit_code, tags, project, force):
     """
-    Save the last failed command and its error.
+    Save a failed command and error message for future reference.
     
-    Examples:
-        your-command || noteerr save "forgot to install package"
-        noteerr save --command "npm start" --error "missing script"
-        noteerr save "bug fix" --project "MyApp" --tags bug
+    This command captures the last failed command along with its error output
+    and saves it to the database with optional annotations, tags, and project info.
+    
+    ARGUMENTS:
+        NOTES                    Optional annotation describing the fix or issue
+    
+    OPTIONS:
+        -c, --command TEXT       The command that failed (auto-detected if omitted)
+        -e, --error TEXT         Error message output (read from stdin if omitted)
+        --exit-code INTEGER      Exit code of the failed command (auto-detected if omitted)
+        -t, --tags TEXT          Comma-separated tags for categorization (e.g., git,npm,docker)
+        -p, --project TEXT       Project name for organization (prompted if omitted)
+        -f, --force              Force save even if a similar error already exists
+    
+    EXAMPLES:
+        # After a command fails, save it with a note
+        npm start || noteerr save "Missing dependencies - run npm install"
+        
+        # Manually specify command and error
+        noteerr save --command "git push" --error "permission denied" "Check SSH keys"
+        
+        # Save with project and tags
+        noteerr save "Fixed by restarting service" --project MyApp --tags deployment,restart
+        
+        # Pipe error output directly
+        npm install 2>&1 | noteerr save "npm install failed"
+    
+    NOTES:
+        • The command is auto-detected from shell history if not specified
+        • Error output is read from stdin if --error is not provided
+        • Duplicate detection prevents saving nearly identical errors
+        • Use --force to bypass duplicate detection
     """
     # Get command if not specified
     if not command:
@@ -150,13 +216,45 @@ def save(notes, command, error, exit_code, tags, project, force):
 @click.option('--all', '-a', 'show_all', is_flag=True, help='Show all entries')
 def list(limit, tag, project, show_all):
     """
-    List recent error entries.
+    Display recent error entries with filtering options.
     
-    Examples:
+    Shows a formatted table of logged errors sorted by most recent first.
+    Filter by tags, projects, or limit the number of results.
+    
+    OPTIONS:
+        -n, --limit INTEGER      Number of recent entries to show (default: 10)
+        -t, --tag TEXT           Filter results by a specific tag
+        -p, --project TEXT       Filter results by project name
+        -a, --all                Show all entries (ignores --limit)
+    
+    EXAMPLES:
+        # Show 10 most recent errors
         noteerr list
+        
+        # Show 20 most recent errors
         noteerr list --limit 20
+        
+        # Show all git-related errors
         noteerr list --tag git
+        
+        # Show errors from MyApp project
         noteerr list --project MyApp
+        
+        # Show all errors (no limit)
+        noteerr list --all
+    
+    OUTPUT COLUMNS:
+        ID           Unique error identifier
+        Command      The failed command
+        Error        First line of error output
+        Project      Associated project (if any)
+        Date         When the error was logged
+        Tags         Associated tags
+    
+    NOTES:
+        • Most recent errors appear first
+        • Use 'noteerr show ID' to see full details
+        • Use 'noteerr search' to find specific errors
     """
     # Prompt for project if --project flag used without value
     if project == "":
@@ -237,11 +335,46 @@ def list(limit, tag, project, show_all):
 @click.option('--limit', '-n', type=int, default=10, help='Max results to show')
 def search(query, limit):
     """
-    Search errors by command, error text, notes, or tags.
+    Search for errors across all fields (command, error text, notes, tags).
     
-    Examples:
+    Find previously logged errors using flexible keyword matching.
+    
+    ARGUMENTS:
+        QUERY                    Search term (command name, error message, note, or tag)
+    
+    OPTIONS:
+        -n, --limit INTEGER      Maximum number of results to show (default: 10)
+    
+    EXAMPLES:
+        # Search for npm-related errors
         noteerr search npm
+        
+        # Search for permission errors
         noteerr search "permission denied"
+        
+        # Search for docker issues
+        noteerr search docker --limit 5
+        
+        # Search for specific error messages
+        noteerr search "ENOSPC"
+    
+    SEARCH FIELDS:
+        • Command name
+        • Error message text
+        • Saved notes
+        • Tags
+        • Project names
+    
+    OUTPUT COLUMNS:
+        ID           Unique error identifier
+        Command      The failing command
+        Error        Error message (truncated)
+        Date         When logged
+    
+    TIPS:
+        • Use 'noteerr show ID' for full details
+        • Search is case-insensitive
+        • Partial matches are supported
     """
     entries = storage.search_entries(query)
     
@@ -275,10 +408,35 @@ def search(query, limit):
 @click.argument('entry_id', type=int)
 def show(entry_id):
     """
-    Show detailed information about a specific error.
+    Display complete details of a specific error entry.
     
-    Examples:
+    Shows all information: command, error output, notes, tags, timestamp, and more.
+    
+    ARGUMENTS:
+        ENTRY_ID                 The error ID number (from 'noteerr list' or 'noteerr search')
+    
+    EXAMPLES:
+        # View error #1
         noteerr show 1
+        
+        # View error #42
+        noteerr show 42
+    
+    DISPLAYED INFORMATION:
+        • Error ID and timestamp
+        • Full command that failed
+        • Exit code
+        • Working directory
+        • Project name (if assigned)
+        • Tags (if any)
+        • Your notes about the fix
+        • Complete error output
+    
+    RELATED COMMANDS:
+        • noteerr list             See all errors
+        • noteerr search           Find specific errors
+        • noteerr copy ID          Copy error details
+        • noteerr delete ID        Remove this error
     """
     entry = storage.get_entry_by_id(entry_id)
     
@@ -530,14 +688,48 @@ def _copy_to_clipboard(content, description="content"):
               help='Output format for clipboard')
 def copy(what, specifier, format):
     """
-    Copy content to clipboard.
+    Copy error details to clipboard in various formats.
     
-    Examples:
-        noteerr copy 1                    # Copy error #1
-        noteerr copy latest               # Copy last command output
-        noteerr copy error latest         # Copy latest error
-        noteerr copy error 1              # Copy error #1
-        noteerr copy latest --format markdown
+    Copy a saved error or terminal output to your clipboard for sharing or documentation.
+    
+    ARGUMENTS:
+        WHAT                     What to copy: error ID, 'latest', etc.
+        SPECIFIER                Additional argument (optional, e.g., 'error 1' or 'latest error')
+    
+    OPTIONS:
+        -f, --format TEXT        Output format: text, markdown, or json (default: text)
+    
+    EXAMPLES:
+        # Copy error #1 to clipboard
+        noteerr copy 1
+        
+        # Copy the latest error
+        noteerr copy latest
+        
+        # Copy specific error
+        noteerr copy error 42
+        
+        # Copy as Markdown (great for documentation)
+        noteerr copy 1 --format markdown
+        
+        # Copy latest error as JSON
+        noteerr copy latest --format json
+    
+    FORMATS:
+        text       Plain text format - easy to paste in messages
+        markdown   Markdown format - suitable for documentation and tickets
+        json       JSON format - for programmatic use
+    
+    USE CASES:
+        • Share errors with teammates
+        • Document solutions
+        • Create issue tickets
+        • Archive important errors
+    
+    TIPS:
+        • After copying, paste with Ctrl+V (or Cmd+V on Mac)
+        • Markdown format is best for GitHub issues
+        • JSON is useful for tool integration
     """
     # Determine what to copy
     copy_type = None
@@ -714,11 +906,33 @@ def rerun(entry_id, dry_run):
 @click.option('--tag', '-t', help='Show stats for specific tag')
 def stats(tag):
     """
-    Show statistics about logged errors.
+    Display statistics about your logged errors.
     
-    Examples:
+    Shows summary information about all errors or errors with a specific tag.
+    
+    OPTIONS:
+        -t, --tag TEXT           Show statistics for only errors with this tag
+    
+    EXAMPLES:
+        # Overview of all errors
         noteerr stats
+        
+        # Statistics for npm errors
+        noteerr stats --tag npm
+        
+        # Statistics for git-related errors
         noteerr stats --tag git
+    
+    DISPLAYS:
+        • Total number of logged errors
+        • Most frequently failing command
+        • Most recent error
+        • All tags and their usage counts
+    
+    TIPS:
+        • Use stats to identify problem areas
+        • High error counts for same command suggest a systemic issue
+        • Tag distribution shows your most problematic areas
     """
     if tag:
         entries = [e for e in storage.get_all_entries() if tag in e.tags]
@@ -760,10 +974,26 @@ def stats(tag):
 @cli.command()
 def projects():
     """
-    List all projects with error counts.
+    List all projects and their error counts.
     
-    Examples:
+    Shows Summary of errors organized by project.
+    
+    EXAMPLES:
+        # View all projects
         noteerr projects
+    
+    DISPLAYS:
+        • Project name
+        • Number of errors per project
+        • Most recent error in each project
+    
+    RELATED COMMANDS:
+        • noteerr list --project NAME     View errors in a project
+        • noteerr save --project NAME     Create error with project tag
+    
+    NOTES:
+        • Projects are assigned when saving errors with --project flag
+        • Use projects to organize errors across multiple codebases
     """
     all_projects = storage.get_all_projects()
     
@@ -798,10 +1028,27 @@ def projects():
 @click.confirmation_option(prompt='Are you sure you want to delete this error?')
 def delete(entry_id):
     """
-    Delete a specific error entry.
+    Permanently delete a specific error entry.
     
-    Examples:
-        noteerr delete 1
+    Remove an error from the database. You will be asked to confirm.
+    
+    ARGUMENTS:
+        ENTRY_ID                 The ID of the error to delete (from 'noteerr list')
+    
+    EXAMPLES:
+        # Delete error #5
+        noteerr delete 5
+        
+        # Delete error #42
+        noteerr delete 42
+    
+    WARNING:
+        • This action is permanent and cannot be undone
+        • You will be prompted to confirm before deletion
+    
+    RELATED COMMANDS:
+        • noteerr clear           Delete ALL errors
+        • noteerr list            See all errors with their IDs
     """
     if storage.delete_entry(entry_id):
         console.print(f"[green]✓ Deleted error #{entry_id}[/green]")
@@ -814,9 +1061,27 @@ def delete(entry_id):
 @click.confirmation_option(prompt='Are you sure you want to delete ALL errors?')
 def clear():
     """
-    Clear all error entries.
+    Permanently delete ALL error entries.
     
-    WARNING: This cannot be undone!
+    Remove the entire error database. You will be asked to confirm.
+    
+    WARNING:
+        • This action is PERMANENT and CANNOT be undone
+        • All logged errors will be deleted
+        • You must confirm before execution
+    
+    USE CASES:
+        • Starting fresh
+        • Privacy cleanup
+        • Resetting the database
+    
+    EXAMPLES:
+        # Clear all errors (with confirmation)
+        noteerr clear
+    
+    SAFER ALTERNATIVES:
+        • Use 'noteerr delete ID' to remove individual errors
+        • Use 'noteerr list --tag TAG' to find specific errors
     """
     count = storage.clear_all()
     console.print(f"[green]✓ Cleared {count} error(s)[/green]")
