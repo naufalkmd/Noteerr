@@ -4,7 +4,7 @@ class Noteerr < Formula
   desc "Command Error Memory Tool - Never forget how you fixed that bug again"
   homepage "https://github.com/naufalkmd/noteerr"
   url "https://github.com/naufalkmd/noteerr/archive/v1.1.0.tar.gz"
-  sha256 "YOUR_SHA256_HERE"
+  sha256 ""7099be1b178475476f9c1ec06e69f38f38d62f2f6d9301384f8309ce4fdc0c4b""
   license "MIT"
 
   depends_on "python@3.11"
