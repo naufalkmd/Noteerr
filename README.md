@@ -615,7 +615,7 @@ noteerr install --shell bash
 
 - 📖 Read [INSTALL.md](INSTALL.md) for detailed installation guide
 - 📝 Check [EXAMPLES.md](EXAMPLES.md) for usage examples
-- 🐛 [Open an issue](https://github.com/yourusername/noteerr/issues) on GitHub
+- 🐛 [Open an issue](https://github.com/naufalkmd/Noteerr/issues) on GitHub
 - 💡 See [NEW_FEATURES.md](NEW_FEATURES.md) for v1.1.0 features
 
 ## 🤝 Contributing

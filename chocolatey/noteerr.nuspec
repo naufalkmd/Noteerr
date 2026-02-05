@@ -7,9 +7,9 @@
     <authors>Your Name</authors>
     <owners>Your Name</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <licenseUrl>https://github.com/yourusername/noteerr/blob/main/LICENSE</licenseUrl>
-    <projectUrl>https://github.com/yourusername/noteerr</projectUrl>
-    <iconUrl>https://raw.githubusercontent.com/yourusername/noteerr/main/icon.png</iconUrl>
+    <licenseUrl>https://github.com/naufalkmd/Noteerr/blob/main/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/naufalkmd/Noteerr</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/naufalkmd/Noteerr/main/icon.png</iconUrl>
     <description>
       Noteerr is a CLI tool that automatically logs, annotates, and recalls command errors.
       Think of it as a "command error memory bank" that helps you track mistakes and their solutions.
@@ -36,10 +36,10 @@
       - Fixed: List command compatibility issues
     </releaseNotes>
     <tags>cli command-line developer-tools error-logging productivity debugging python terminal</tags>
-    <projectSourceUrl>https://github.com/yourusername/noteerr</projectSourceUrl>
-    <packageSourceUrl>https://github.com/yourusername/noteerr/tree/main/chocolatey</packageSourceUrl>
-    <docsUrl>https://github.com/yourusername/noteerr#readme</docsUrl>
-    <bugTrackerUrl>https://github.com/yourusername/noteerr/issues</bugTrackerUrl>
+    <projectSourceUrl>https://github.com/naufalkmd/Noteerr</projectSourceUrl>
+    <packageSourceUrl>https://github.com/naufalkmd/Noteerr/tree/main/chocolatey</packageSourceUrl>
+    <docsUrl>https://github.com/naufalkmd/Noteerr#readme</docsUrl>
+    <bugTrackerUrl>https://github.com/naufalkmd/Noteerr/issues</bugTrackerUrl>
     <dependencies>
       <dependency id="python" version="3.8" />
     </dependencies>

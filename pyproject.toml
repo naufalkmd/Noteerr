@@ -25,4 +25,4 @@ dependencies = [
 noteerr = "noteerr.cli:main"
 
 [project.urls]
-Homepage = "https://github.com/yourusername/noteerr"
+Homepage = "https://github.com/naufalkmd/Noteerr"

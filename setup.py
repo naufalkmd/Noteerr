@@ -10,7 +10,7 @@ setup(
     description="A CLI tool to log, annotate, and recall command errors",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/yourusername/noteerr",
+    url="https://github.com/naufalkmd/Noteerr",
     packages=find_packages(where="src"),
     package_dir={"": "src"},
     classifiers=[

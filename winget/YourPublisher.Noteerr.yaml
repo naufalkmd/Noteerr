@@ -2,13 +2,13 @@ PackageIdentifier: YourPublisher.Noteerr
 PackageVersion: 1.1.0
 PackageLocale: en-US
 Publisher: Your Name
-PublisherUrl: https://github.com/yourusername
-PublisherSupportUrl: https://github.com/yourusername/noteerr/issues
+PublisherUrl: https://github.com/naufalkmd
+PublisherSupportUrl: https://github.com/naufalkmd/Noteerr/issues
 Author: Your Name
 PackageName: Noteerr
-PackageUrl: https://github.com/yourusername/noteerr
+PackageUrl: https://github.com/naufalkmd/Noteerr
 License: MIT
-LicenseUrl: https://github.com/yourusername/noteerr/blob/main/LICENSE
+LicenseUrl: https://github.com/naufalkmd/Noteerr/blob/main/LICENSE
 Copyright: Copyright (c) 2026 Your Name
 ShortDescription: Command Error Memory Tool
 Description: |-
@@ -42,6 +42,6 @@ ReleaseNotes: |-
   - Project-based organization
   - Enhanced copy command with 'latest' support
   - Automatic PATH setup on installation
-ReleaseNotesUrl: https://github.com/yourusername/noteerr/releases/tag/v1.1.0
+ReleaseNotesUrl: https://github.com/naufalkmd/Noteerr/releases/tag/v1.1.0
 ManifestType: defaultLocale
 ManifestVersion: 1.5.0
