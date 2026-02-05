@@ -101,12 +101,33 @@ def cli():
 
 @cli.command()
 @click.argument('notes', required=False, default="")
-@click.option('--command', '-c', help='Command that failed (auto-detected if not specified)')
-@click.option('--error', '-e', help='Error message (read from stdin if not specified)')
-@click.option('--exit-code', type=int, default=None, help='Exit code of failed command')
-@click.option('--tags', '-t', help='Comma-separated tags (e.g., git,npm,docker)')
-@click.option('--project', '-p', help='Project name (will prompt if not specified)')
-@click.option('--force', '-f', is_flag=True, help='Force save even if duplicate exists')
+@click.option(
+    '--command', '-c',
+    help='Command that failed (auto-detected if not specified)'
+)
+@click.option(
+    '--error', '-e',
+    help='Error message (read from stdin if not specified)'
+)
+@click.option(
+    '--exit-code',
+    type=int,
+    default=None,
+    help='Exit code of failed command'
+)
+@click.option(
+    '--tags', '-t',
+    help='Comma-separated tags (e.g., git,npm,docker)'
+)
+@click.option(
+    '--project', '-p',
+    help='Project name (will prompt if not specified)'
+)
+@click.option(
+    '--force', '-f',
+    is_flag=True,
+    help='Force save even if duplicate exists'
+)
 def save(notes, command, error, exit_code, tags, project, force):
     """
     Save a failed command and error message for future reference.
@@ -235,10 +256,26 @@ def save(notes, command, error, exit_code, tags, project, force):
 
 
 @cli.command()
-@click.option('--limit', '-n', type=int, default=10, help='Number of entries to show')
-@click.option('--tag', '-t', help='Filter by tag')
-@click.option('--project', '-p', help='Filter by project')
-@click.option('--all', '-a', 'show_all', is_flag=True, help='Show all entries')
+@click.option(
+    '--limit', '-n',
+    type=int,
+    default=10,
+    help='Number of entries to show'
+)
+@click.option(
+    '--tag', '-t',
+    help='Filter by tag'
+)
+@click.option(
+    '--project', '-p',
+    help='Filter by project'
+)
+@click.option(
+    '--all', '-a',
+    'show_all',
+    is_flag=True,
+    help='Show all entries'
+)
 def list(limit, tag, project, show_all):
     """
     Display recent error entries with filtering options.
@@ -357,7 +394,12 @@ def list(limit, tag, project, show_all):
 
 @cli.command()
 @click.argument('query')
-@click.option('--limit', '-n', type=int, default=10, help='Max results to show')
+@click.option(
+    '--limit', '-n',
+    type=int,
+    default=10,
+    help='Max results to show'
+)
 def search(query, limit):
     """
     Search for errors across all fields (command, error text, notes, tags).
@@ -709,8 +751,12 @@ def _copy_to_clipboard(content, description="content"):
 @cli.command()
 @click.argument('what', type=str)
 @click.argument('specifier', type=str, required=False)
-@click.option('--format', '-f', type=click.Choice(['text', 'markdown', 'json']), default='text',
-              help='Output format for clipboard')
+@click.option(
+    '--format', '-f',
+    type=click.Choice(['text', 'markdown', 'json']),
+    default='text',
+    help='Output format for clipboard'
+)
 def copy(what, specifier, format):
     """
     Copy error details to clipboard in various formats.
@@ -856,7 +902,10 @@ Timestamp: {entry.formatted_timestamp}
 @cli.command()
 @click.argument('entry_id', type=int)
 @click.argument('notes')
-@click.option('--tags', '-t', help='Update tags (comma-separated)')
+@click.option(
+    '--tags', '-t',
+    help='Update tags (comma-separated)'
+)
 def annotate(entry_id, notes, tags):
     """
     Add or update notes and tags for an error entry.
@@ -885,7 +934,11 @@ def annotate(entry_id, notes, tags):
 
 @cli.command()
 @click.argument('entry_id', type=int)
-@click.option('--dry-run', is_flag=True, help='Show command without executing')
+@click.option(
+    '--dry-run',
+    is_flag=True,
+    help='Show command without executing'
+)
 def rerun(entry_id, dry_run):
     """
     Re-execute a previously failed command.
@@ -928,7 +981,10 @@ def rerun(entry_id, dry_run):
 
 
 @cli.command()
-@click.option('--tag', '-t', help='Show stats for specific tag')
+@click.option(
+    '--tag', '-t',
+    help='Show stats for specific tag'
+)
 def stats(tag):
     """
     Display statistics about your logged errors.
@@ -1113,9 +1169,16 @@ def clear():
 
 
 @cli.command()
-@click.option('--shell', type=click.Choice(['bash', 'zsh', 'powershell']), 
-              help='Generate shell integration script')
-@click.option('--check-path', is_flag=True, help='Check and fix PATH on Windows')
+@click.option(
+    '--shell',
+    type=click.Choice(['bash', 'zsh', 'powershell']),
+    help='Generate shell integration script'
+)
+@click.option(
+    '--check-path',
+    is_flag=True,
+    help='Check and fix PATH on Windows'
+)
 def install(shell, check_path):
     """
     Install shell integration for automatic error capture.
