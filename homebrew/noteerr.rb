@@ -2,9 +2,15 @@ class Noteerr < Formula
   include Language::Python::Virtualenv
 
   desc "Command Error Memory Tool - Never forget how you fixed that bug again"
+<<<<<<< HEAD
   homepage "https://github.com/naufalkmd/Noteerr"
   url "https://github.com/naufalkmd/Noteerr/archive/refs/tags/v1.1.0.tar.gz"
   sha256 "REPLACE_WITH_ACTUAL_SHA256"
+=======
+  homepage "https://github.com/naufalkmd/noteerr"
+  url "https://github.com/naufalkmd/noteerr/archive/v1.1.0.tar.gz"
+  sha256 ""7099be1b178475476f9c1ec06e69f38f38d62f2f6d9301384f8309ce4fdc0c4b""
+>>>>>>> 2f3782aba7f52a63f0451c0d1508642b3d8c500f
   license "MIT"
 
   depends_on "python@3.11"
