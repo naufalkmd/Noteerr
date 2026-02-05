@@ -1,0 +1,47 @@
+PackageIdentifier: YourPublisher.Noteerr
+PackageVersion: 1.1.0
+PackageLocale: en-US
+Publisher: Your Name
+PublisherUrl: https://github.com/yourusername
+PublisherSupportUrl: https://github.com/yourusername/noteerr/issues
+Author: Your Name
+PackageName: Noteerr
+PackageUrl: https://github.com/yourusername/noteerr
+License: MIT
+LicenseUrl: https://github.com/yourusername/noteerr/blob/main/LICENSE
+Copyright: Copyright (c) 2026 Your Name
+ShortDescription: Command Error Memory Tool
+Description: |-
+  Noteerr is a CLI tool that automatically logs, annotates, and recalls command errors.
+  Think of it as a "command error memory bank" that helps you track mistakes and their solutions.
+  
+  Features:
+  - Automatic error capture
+  - Annotation system for fixes
+  - Powerful search capabilities
+  - Tag management
+  - Statistics tracking
+  - Shell integration for Bash, Zsh, and PowerShell
+  - Copy to clipboard support
+  - Smart duplicate detection
+  - Project-based organization
+Moniker: noteerr
+Tags:
+- cli
+- command-line
+- developer-tools
+- error-logging
+- productivity
+- terminal
+- debugging
+- annotations
+ReleaseNotes: |-
+  v1.1.0 Release:
+  - Copy to clipboard (text/markdown/json formats)
+  - Smart duplicate detection
+  - Project-based organization
+  - Enhanced copy command with 'latest' support
+  - Automatic PATH setup on installation
+ReleaseNotesUrl: https://github.com/yourusername/noteerr/releases/tag/v1.1.0
+ManifestType: defaultLocale
+ManifestVersion: 1.5.0

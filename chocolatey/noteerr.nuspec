@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2015/06/nuspec.xsd">
+  <metadata>
+    <id>noteerr</id>
+    <version>1.1.0</version>
+    <title>Noteerr</title>
+    <authors>Your Name</authors>
+    <owners>Your Name</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <licenseUrl>https://github.com/yourusername/noteerr/blob/main/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/yourusername/noteerr</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/yourusername/noteerr/main/icon.png</iconUrl>
+    <description>
+      Noteerr is a CLI tool that automatically logs, annotates, and recalls command errors.
+      Think of it as a "command error memory bank" that helps you track mistakes and their solutions.
+      
+      Features:
+      - Automatic error capture with exit codes
+      - Annotation system for documenting fixes
+      - Powerful search across commands, errors, and notes
+      - Tag management for categorization
+      - Statistics and insights
+      - Shell integration (Bash, Zsh, PowerShell)
+      - Copy to clipboard (text/markdown/json)
+      - Smart duplicate detection
+      - Project-based organization
+    </description>
+    <summary>Command Error Memory Tool - Never forget how you fixed that bug again!</summary>
+    <releaseNotes>
+      v1.1.0 Changes:
+      - New: Copy to clipboard in multiple formats
+      - New: Smart duplicate detection
+      - New: Project-based error organization
+      - New: Copy latest command with 'noteerr copy latest'
+      - Improved: Automatic PATH setup on installation
+      - Fixed: List command compatibility issues
+    </releaseNotes>
+    <tags>cli command-line developer-tools error-logging productivity debugging python terminal</tags>
+    <projectSourceUrl>https://github.com/yourusername/noteerr</projectSourceUrl>
+    <packageSourceUrl>https://github.com/yourusername/noteerr/tree/main/chocolatey</packageSourceUrl>
+    <docsUrl>https://github.com/yourusername/noteerr#readme</docsUrl>
+    <bugTrackerUrl>https://github.com/yourusername/noteerr/issues</bugTrackerUrl>
+    <dependencies>
+      <dependency id="python" version="3.8" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="tools\**" target="tools" />
+  </files>
+</package>

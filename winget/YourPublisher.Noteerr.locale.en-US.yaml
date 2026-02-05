@@ -1,0 +1,16 @@
+PackageIdentifier: YourPublisher.Noteerr
+PackageVersion: 1.1.0
+PackageName: Noteerr
+Publisher: Your Name
+License: MIT
+LicenseUrl: https://github.com/yourusername/noteerr/blob/main/LICENSE
+ShortDescription: Command Error Memory Tool - Never forget how you fixed that bug again
+PackageUrl: https://github.com/yourusername/noteerr
+Tags:
+  - cli
+  - error-logging
+  - developer-tools
+  - productivity
+  - command-line
+ManifestType: defaultLocale
+ManifestVersion: 1.5.0
