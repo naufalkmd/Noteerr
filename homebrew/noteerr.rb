@@ -2,9 +2,9 @@ class Noteerr < Formula
   include Language::Python::Virtualenv
 
   desc "Command Error Memory Tool - Never forget how you fixed that bug again"
-  homepage "https://github.com/naufalkmd/noteerr"
-  url "https://github.com/naufalkmd/noteerr/archive/v1.1.0.tar.gz"
-  sha256 "YOUR_SHA256_HERE"
+  homepage "https://github.com/naufalkmd/Noteerr"
+  url "https://github.com/naufalkmd/Noteerr/archive/refs/tags/v1.1.0.tar.gz"
+  sha256 "REPLACE_WITH_ACTUAL_SHA256"
   license "MIT"
 
   depends_on "python@3.11"
@@ -20,7 +20,7 @@ class Noteerr < Formula
   end
 
   resource "rich" do
-    url "https://files.pythonhosted.org/packages/92/76/40f084cb7db51c9d1fa29a7120717892aeda9a7711f6225692c957a93535/rich-13.7.0.tar.gz"
+    url "https://files.pythonhosted.org/packages/b3/01/c954e134dc440ab5f96952fe52b4fdc64225530320a910473c1fe270d9aa/rich-13.7.0-py3-none-any.whl"
     sha256 "5cb5123b5cf9ee70584244246816e9114227e0b98ad9176eede6ad54bf5403fa"
   end
 
